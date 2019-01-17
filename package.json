@@ -9,21 +9,15 @@
   "author": "Sean McPherson <seanmcp25@gmail.com> (https://github.com/seanmcp)",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^23.3.11",
-    "@types/react": "^16.7.18",
-    "@types/react-dom": "^16.0.11",
-    "jest": "^23.6.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "ts-jest": "^23.10.5",
-    "typescript": "^3.2.2"
-  },
-  "peerDependencies": {
-    "react": "16.7.0",
-    "react-dom": "^16.7.0"
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0"
   },
   "scripts": {
-    "build": "rm -rf ./lib && mkdir ./lib && tsc",
+    "build": "rm -rf ./lib && mkdir ./lib && babel src -d lib",
     "test": "jest"
   },
   "files": [
@@ -34,5 +28,6 @@
     "onkey",
     "keyboardevent",
     "keypress"
-  ]
+  ],
+  "dependencies": {}
 }
