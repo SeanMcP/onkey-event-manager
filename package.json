@@ -1,7 +1,7 @@
 {
   "name": "react-onkey",
   "version": "0.0.0--prerelease.0",
-  "description": "Easily map onKey functions to keys in React",
+  "description": "Easily map onKey functions to keyboard events in React",
   "main": "lib/index.js",
   "repository": "https://github.com/seanmcp/react-onkey",
   "homepage": "https://github.com/seanmcp/react-onkey#readme",

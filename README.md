@@ -1,77 +1,120 @@
-# a11y-react-emoji
+# react-onkey
 
-[![npm](https://img.shields.io/npm/v/a11y-react-emoji.svg)](https://npmjs.com/package/a11y-react-emoji) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/a11y-react-emoji.svg)](https://npmjs.com/package/a11y-react-emoji) [![npm](https://img.shields.io/npm/dt/a11y-react-emoji.svg)](https://npmjs.com/package/a11y-react-emoji)
+[![npm](https://img.shields.io/npm/v/react-onkey.svg)](https://npmjs.com/package/react-onkey) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/react-onkey.svg)](https://npmjs.com/package/react-onkey) [![npm](https://img.shields.io/npm/dt/react-onkey.svg)](https://npmjs.com/package/react-onkey)
 
-⚛️ An accessible Emoji component for React applications
+🗝 Easily map onKey functions to keyboard events in React
 
-## Why?
-Emojis can add a light playfulness to your project but require some specific formatting in order to ensure they are accessible for all users. `a11y-react-emoji`'s reusable `Emoji` component helps you do that quickly and painlessly.
+## Simple
 
-## How
-The `Emoji` component wraps the provided symbol in a `span` with a `role="img"` attribute. If a label is provided, then it is passed as an `aria-label` to the span. If not, then `aria-hidden` is set to `true`.
-
-```html
-<span aria-label="a rocket blasting off" role="img">🚀</span>
-<span aria-hidden="true" role="img">🤫</span>
-```
-
-This follows the pattern recommended by [Léonie Watson](http://tink.uk/accessible-emoji/) and used by [eslint-plugin-jsx-a11y](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/accessible-emoji.md).
-
-## Installation
-Add `a11y-react-emoji` to your project:
-
-```sh
-npm install --save a11y-react-emoji
-# or
-yarn add a11y-react-emoji
-```
-
-## Use
-Import `Emoji`, a default export, from `a11y-react-emoji` and add it to your code:
+`react-onkey` simplifies the process of listening for and acting on key changes in React.
 
 ```jsx
-...
-import Emoji from 'a11y-react-emoji'
+import { KEY, onKey } from 'react-onkey'
 
-function HeartFooter() {
+<button onKeyDown={onKey(KEY.ArrowDown, open)}>▾</button>
+```
+
+## Why?
+React provides three keyboard events to trigger actions: `onKeyDown`, `onKeyPress`, and `onKeyUp`. In order to listen to specific keys, you need to pass a function that takes and event and compares the `event.key` to the desired key like so:
+
+```jsx
+function Accordion(props) {
+    const [isOpen, setIsOpen] = React.useState(false)
+
+    function open() {
+        setIsOpen(true)
+    }
+    
+    function openOnArrowDown(event) {
+        if (event.key === 'ArrowDown') {
+            open()
+        }
+    }
+
     return (
-        <footer>
-            Made with
-            {' '}
-            <Emoji symbol="❤️" label="love" />
-            {' '}
-            by Sean McPherson
-        </footer>
+        <div>
+            <h2>{props.title}</h2>
+            <button
+                aria-label={'Toggle accordion'}
+                onClick={open}
+                onKeyDown={openOnArrowDown}
+            >
+                ▾
+            </button>
+            {isOpen && <div>{props.children}</div>}
+        </div>
     )
 }
 ```
+This is fine but becomes cumbersome when trying to make complex user interfaces accessible.
 
-## Emoji component
-The `Emoji` component consumes two props: `symbol` and `label`. Every other prop is spread to the top-level JSX element, in this case a `<span>`.
+`react-onkey` abstracts the event key filtering logic away, simplifying the process of listening for keys.
 
-```ts
-interface EmojiProps {
-    label?: string; // optional
-    symbol: string; // required
-}
+## How
+
+`react-onkey` comprises two exports: `KEY` and `onKey`. The `onKey` function will work without `KEY`, but is best to use the two together.
+
+### `KEY`
+`KEY` is an object with nearly* all available KeyboardEvent keys. You can view the [full list available here](src/keys.js).
+
+You can access word keys using dot notation:
+
+```js
+import { KEY } from 'react-onkey'
+
+KEY.Enter // 'Enter'
+KEY.Tab   // 'Tab'
 ```
 
-## Considerations
-If you are using `a11y-react-emoji` with a CSS-in-JS library like `styled-components` or `emotion`, keep in mind that **all additional props** are passed to the JSX element.
+To access symbols or numbers, use bracket notation:
 
-### Styling an Emoji with `styled-components`
+```js
+KEY[9]    // '9'
+KEY['\\'] // '\'
+```
+
+> \* Currently a U.S. English keyboard
+
+### `onKey`
+
+`onKey` is a simple function that listens for an event, compares it to the desired key, then calls a callback if there is a match. It takes two parameters:
+
+```js
+onKey(
+    keyToMatch:String // Valid KeyboardEvent key
+    callback:Function
+)
+```
+
+Passing an invalid KeyboardEvent key, one that is not know to `KEY`, will result in an error. It is best to use the two together.
 
 ```jsx
-import styled, { css } from 'styled-components'
-import Emoji from 'a11y-react-emoji'
+<li key={i} onKeyDown={onKey(KEY.ArrowDown, incrementIndex)}>{item}</li>
+```
 
-const StyledEmoji = styled(({ isSpinning, ...props }) => <Emoji {...props} />)`
-    font-size: 32px;
+## Install
+Add `react-onkey` to your project:
 
-    ${props => props.isSpinning && css`
-        animation: spinning 1s linear infinite;
-    `}
-`
+```sh
+npm install --save react-onkey
+# or
+yarn add react-onkey
+```
+
+## Use
+Import `KEYS` and `onKey` from `react-onkey` and add it to your code:
+
+```jsx
+...
+import { KEYS, onKey } from 'react-onkey'
+
+function Button({ onClick }) {
+    return (
+        <button onClick={onClick} onKeyDown={onKey(KEYS.ArrowDown, onClick)}>
+            <code>onClick</code> will fire when I am clicked or when I'm focused and you press the down arrow.
+        </button>
+    )
+}
 ```
 
 ## License
