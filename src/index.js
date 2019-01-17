@@ -1,5 +1,5 @@
 import onKey from './onKey';
-import KEY from './keys'
+import KEY from './key'
 
 export {
     onKey,

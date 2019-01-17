@@ -60,7 +60,7 @@ yarn add react-onkey
 ```
 
 ## Use
-Import `KEYS` and `onKey` from `react-onkey` and add it to your code:
+Import `KEY` and `onKey` from `react-onkey` and add it to your code:
 
 ```jsx
 ...
@@ -84,7 +84,7 @@ function Button({ onClick }) {
 `react-onkey` comprises two exports: `KEY` and `onKey`. The `onKey` function will work without `KEY`, but is best to use the two together.
 
 ### `KEY`
-`KEY` is an object with nearly* all available KeyboardEvent keys. You can view the [full list available here](src/keys.js).
+`KEY` is an object with nearly* all available KeyboardEvent keys. You can view the [full list available here](src/key.js).
 
 You can access word keys using dot notation:
 

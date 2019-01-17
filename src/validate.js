@@ -1,4 +1,4 @@
-import KEY from './keys'
+import KEY from './key'
 
 export function isValid(keyActionMap) {
     if (!Object.keys(keyActionMap).length)
