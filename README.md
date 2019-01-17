@@ -11,11 +11,11 @@
 ```jsx
 import { KEY, onKey } from 'react-onkey'
 
-<button onKeyDown={onKey(KEY.ArrowDown, open)}>▾</button>
+<button onKeyDown={onKey({ [KEY.ArrowDown]: open }}>▾</button>
 ```
 
 ## Why?
-React provides three keyboard events to trigger actions: `onKeyDown`, `onKeyPress`, and `onKeyUp`. In order to listen to specific keys, you need to pass a function that takes and event and compares the `event.key` to the desired key like so:
+React provides three keyboard events to trigger actions: `onKeyDown`, `onKeyPress`, and `onKeyUp`. In order to listen to specific keys, you need to pass a function that takes an event and compares the `event.key` to the desired key like so:
 
 ```jsx
 function Accordion(props) {
@@ -48,9 +48,38 @@ function Accordion(props) {
 ```
 This is fine but becomes cumbersome when trying to make complex user interfaces accessible.
 
-`react-onkey` abstracts the event key filtering logic away, simplifying the process of listening for keys.
+`react-onkey` abstracts the event key filtering logic, simplifying the process of listening for keys.
 
-## How
+## Install
+Add `react-onkey` to your project:
+
+```sh
+npm install --save react-onkey
+# or
+yarn add react-onkey
+```
+
+## Use
+Import `KEYS` and `onKey` from `react-onkey` and add it to your code:
+
+```jsx
+...
+import { KEY, onKey } from 'react-onkey'
+
+function Button({ onClick }) {
+    return (
+        <button
+            onClick={onClick}
+            onKeyDown={onKey({[ KEY.ArrowDown ]: onClick})}
+        >
+            <code>onClick</code> will fire when I am clicked
+            or when I'm focused and you press the down arrow.
+        </button>
+    )
+}
+```
+
+## API
 
 `react-onkey` comprises two exports: `KEY` and `onKey`. The `onKey` function will work without `KEY`, but is best to use the two together.
 
@@ -73,49 +102,34 @@ KEY[9]    // '9'
 KEY['\\'] // '\'
 ```
 
-> \* Currently a U.S. English keyboard
+> \*Currently a U.S. English keyboard
 
 ### `onKey`
 
-`onKey` is a simple function that listens for an event, compares it to the desired key, then calls a callback if there is a match. It takes two parameters:
+`onKey` is a simple function that listens for an event, compares it to a set of selected keys, then calls the action if there is a match. It takes an object as a parameter that maps a key to a function:
 
 ```js
-onKey(
-    keyToMatch:String // Valid KeyboardEvent key
-    callback:Function
-)
+onKey(Object<String, Function>)
 ```
-
-Passing an invalid KeyboardEvent key, one that is not know to `KEY`, will result in an error. It is best to use the two together.
+If there is a single key you want to listen for, pass an object with [computed property names](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names):
 
 ```jsx
-<li key={i} onKeyDown={onKey(KEY.ArrowDown, incrementIndex)}>{item}</li>
+<button onKeyDown={onKey({[KEY.ArrowDown]: openMenu})} >
 ```
 
-## Install
-Add `react-onkey` to your project:
-
-```sh
-npm install --save react-onkey
-# or
-yarn add react-onkey
-```
-
-## Use
-Import `KEYS` and `onKey` from `react-onkey` and add it to your code:
+For more complex listening, consider creating a separate object to keep your JSX clean:
 
 ```jsx
-...
-import { KEYS, onKey } from 'react-onkey'
-
-function Button({ onClick }) {
-    return (
-        <button onClick={onClick} onKeyDown={onKey(KEYS.ArrowDown, onClick)}>
-            <code>onClick</code> will fire when I am clicked or when I'm focused and you press the down arrow.
-        </button>
-    )
+function SelectOption(props) {
+    const keyActionMap = {
+        [KEY.ArrowUp]: props.decrementIndex,
+        [KEY.ArrowDown]: props.incrementIndex,
+    }
+    return <li onKeyDown={onKey(keyActionMap)}>{props.children}</li>
 }
 ```
+
+Passing an invalid KeyboardEvent key, one that is not know to `KEY`, will result in an error, so it is best to use the two together.
 
 ## License
 
