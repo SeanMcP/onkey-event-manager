@@ -1,0 +1,38 @@
+{
+  "name": "react-onkey",
+  "version": "0.0.0--prerelease.0",
+  "description": "Easily map onKey functions to keys in React",
+  "main": "lib/index.js",
+  "repository": "https://github.com/seanmcp/react-onkey",
+  "homepage": "https://github.com/seanmcp/react-onkey#readme",
+  "bugs": "https://github.com/seanmcp/react-onkey/issues",
+  "author": "Sean McPherson <seanmcp25@gmail.com> (https://github.com/seanmcp)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^23.3.11",
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
+    "jest": "^23.6.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.2"
+  },
+  "peerDependencies": {
+    "react": "16.7.0",
+    "react-dom": "^16.7.0"
+  },
+  "scripts": {
+    "build": "rm -rf ./lib && mkdir ./lib && tsc",
+    "test": "jest"
+  },
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "react",
+    "onkey",
+    "keyboardevent",
+    "keypress"
+  ]
+}
