@@ -1,21 +1,24 @@
-# react-onkey
+# onkey-event-manager
+[![npm](https://img.shields.io/npm/v/onkey-event-manager.svg)](https://npmjs.com/package/onkey-event-manager) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/onkey-event-manager.svg)](https://npmjs.com/package/onkey-event-manager) [![npm](https://img.shields.io/npm/dt/onkey-event-manager.svg)](https://npmjs.com/package/onkey-event-manager)
 
-[![npm](https://img.shields.io/npm/v/react-onkey.svg)](https://npmjs.com/package/react-onkey) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/react-onkey.svg)](https://npmjs.com/package/react-onkey) [![npm](https://img.shields.io/npm/dt/react-onkey.svg)](https://npmjs.com/package/react-onkey)
+🗝 Easily map onKey functions to keyboard events
 
-🗝 Easily map onKey functions to keyboard events in React
+> Note: This library was initially developed for React applications, so all the examples are React specific. However, the API is agnostic and can be used with vanilla JavaScript or other frameworks.
 
 ## Simple
 
-`react-onkey` simplifies the process of listening for and acting on key changes in React.
+`onkey-event-manager` simplifies the process of listening for and acting on key changes.
 
 ```jsx
-import { KEY, onKey } from 'react-onkey'
+import { KEY, onKey } from 'onkey-event-manager'
 
 <button onKeyDown={onKey({ [KEY.ArrowDown]: open }}>▾</button>
 ```
 
 ## Why?
-React provides three keyboard events to trigger actions: `onKeyDown`, `onKeyPress`, and `onKeyUp`. In order to listen to specific keys, you need to pass a function that takes an event and compares the `event.key` to the desired key like so:
+JavaScript provides three keyboard events to trigger actions: `keydown`, `keyup`, and `keypress`. In order to listen to specific keys, you need to pass a function that takes an event and compares the `event.key` to the desired key like so:
+
+### Traditional React example
 
 ```jsx
 function Accordion(props) {
@@ -48,29 +51,29 @@ function Accordion(props) {
 ```
 This is fine but becomes cumbersome when trying to make complex user interfaces accessible.
 
-`react-onkey` abstracts the event key filtering logic, simplifying the process of listening for keys.
+`onkey-event-manager` abstracts the event key filtering logic, simplifying the process of listening for keys.
 
 ## Install
-Add `react-onkey` to your project:
+Add `onkey-event-manager` to your project:
 
 ```sh
-npm install --save react-onkey
+npm install --save onkey-event-manager
 # or
-yarn add react-onkey
+yarn add onkey-event-manager
 ```
 
 ## Use
-Import `KEY` and `onKey` from `react-onkey` and add it to your code:
+Import `KEY` and `onKey` from `onkey-event-manager` and add it to your code:
 
 ```jsx
 ...
-import { KEY, onKey } from 'react-onkey'
+import { KEY, onKey } from 'onkey-event-manager'
 
 function Button({ onClick }) {
     return (
         <button
             onClick={onClick}
-            onKeyDown={onKey({[ KEY.ArrowDown ]: onClick})}
+            onKeyDown={onKey({ [KEY.ArrowDown]: onClick })}
         >
             <code>onClick</code> will fire when I am clicked
             or when I'm focused and you press the down arrow.
@@ -81,15 +84,15 @@ function Button({ onClick }) {
 
 ## API
 
-`react-onkey` comprises two exports: `KEY` and `onKey`. The `onKey` function will work without `KEY`, but is best to use the two together.
+`onkey-event-manager` comprises two exports: `KEY` and `onKey`. The `onKey` function will work without `KEY`, but is best to use the two together.
 
 ### `KEY`
-`KEY` is an object with nearly* all available KeyboardEvent keys. You can view the [full list available here](src/key.js).
+`KEY` is an object with nearly\* all available KeyboardEvent keys. You can view the [full list available here](src/key.js).
 
 You can access word keys using dot notation:
 
 ```js
-import { KEY } from 'react-onkey'
+import { KEY } from 'onkey-event-manager'
 
 KEY.Enter // 'Enter'
 KEY.Tab   // 'Tab'
@@ -114,7 +117,7 @@ onKey(Object<String, Function>)
 If there is a single key you want to listen for, pass an object with [computed property names](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names):
 
 ```jsx
-<button onKeyDown={onKey({[KEY.ArrowDown]: openMenu})} >
+<button onKeyDown={onKey({ [KEY.ArrowDown]: openMenu })} >
 ```
 
 For more complex listening, consider creating a separate object to keep your JSX clean:
@@ -130,6 +133,9 @@ function SelectOption(props) {
 ```
 
 Passing an invalid KeyboardEvent key, one that is not know to `KEY`, will result in an error, so it is best to use the two together.
+
+## Author
+[Sean McPherson](https://github.com/seanmcp)
 
 ## License
 

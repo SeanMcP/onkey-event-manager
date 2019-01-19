@@ -1,12 +1,11 @@
 {
-  "name": "react-onkey",
+  "name": "onkey-event-manager",
   "version": "0.0.0--prerelease.0",
-  "description": "Easily map onKey functions to keyboard events in React",
+  "description": "Easily map onKey functions to keyboard events",
   "main": "lib/index.js",
-  "repository": "https://github.com/seanmcp/react-onkey",
-  "homepage": "https://github.com/seanmcp/react-onkey#readme",
-  "bugs": "https://github.com/seanmcp/react-onkey/issues",
-  "author": "Sean McPherson <seanmcp25@gmail.com> (https://github.com/seanmcp)",
+  "repository": "https://github.com/seanmcp/onkey-event-manager",
+  "homepage": "https://github.com/seanmcp/onkey-event-manager#readme",
+  "bugs": "https://github.com/seanmcp/onkey-event-manager/issues",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -24,10 +23,11 @@
     "lib"
   ],
   "keywords": [
-    "react",
     "onkey",
+    "keyboard event",
     "keyboardevent",
+    "keydown",
+    "keyup",
     "keypress"
-  ],
-  "dependencies": {}
+  ]
 }
