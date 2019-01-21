@@ -87,7 +87,7 @@ function Button({ onClick }) {
 `onkey-event-manager` comprises two exports: `KEY` and `onKey`. The `onKey` function will work without `KEY`, but is best to use the two together.
 
 ### `KEY`
-`KEY` is an object with nearly\* all available KeyboardEvent keys. You can view the [full list available here](src/key.js).
+`KEY` is an object with nearly\* all available KeyboardEvent keys. You can view the [full list available here](https://npmjs.org/package/all-keyboardevent-keys).
 
 You can access word keys using dot notation:
 
@@ -104,8 +104,6 @@ To access symbols or numbers, use bracket notation:
 KEY[9]    // '9'
 KEY['\\'] // '\'
 ```
-
-> \*Currently a U.S. English keyboard
 
 ### `onKey`
 
