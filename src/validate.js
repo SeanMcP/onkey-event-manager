@@ -1,4 +1,4 @@
-import KEY from './key'
+import KEY from 'all-keyboardevent-keys'
 
 export function isValid(keyActionMap) {
     if (!Object.keys(keyActionMap).length)

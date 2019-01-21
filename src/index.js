@@ -1,5 +1,5 @@
 import onKey from './onKey';
-import KEY from './key'
+import KEY from 'all-keyboardevent-keys'
 
 export {
     onKey,
