@@ -7,7 +7,10 @@ export function isValid(keyActionMap) {
         );
 }
 
-export function areValidKeys(keyActionMap) {
+export function areValidKeys(keyActionMap, options) {
+    if (options && options.skipKeyValidation) {
+        return
+    }
     for (const key in keyActionMap) {
         if (!KEY[key]) {
             throw Error(`'${key}' is not a valid KeyboardEvent key`);
@@ -23,8 +26,8 @@ export function areValidFunctions(keyActionMap) {
     }
 }
 
-export default function(keyActionMap) {
+export default function(keyActionMap, options) {
     isValid(keyActionMap);
-    areValidFunctions(keyActionMap);
+    areValidFunctions(keyActionMap, options);
     areValidKeys(keyActionMap);
 }

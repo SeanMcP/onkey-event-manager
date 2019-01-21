@@ -109,10 +109,10 @@ KEY['\\'] // '\'
 
 ### `onKey`
 
-`onKey` is a simple function that listens for an event, compares it to a set of selected keys, then calls the action if there is a match. It takes an object as a parameter that maps a key to a function:
+`onKey` is a simple function that listens for an event, compares it to a set of selected keys, then calls the action if there is a match. It takes two objects as parameters: the first maps a key to a function, and the second is for options:
 
 ```js
-onKey(Object<String, Function>)
+onKey(Object<String, Function>, Object<String, Boolean>)
 ```
 If there is a single key you want to listen for, pass an object with [computed property names](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names):
 
@@ -132,7 +132,17 @@ function SelectOption(props) {
 }
 ```
 
-Passing an invalid KeyboardEvent key, one that is not know to `KEY`, will result in an error, so it is best to use the two together.
+By default, passing an invalid KeyboardEvent key, one that is not know to `KEY`, will result in an error, so it is best to use the two together.
+
+If you want to override this validation, use the `skipKeyValidation` option.
+
+#### Options
+
+The `onKey` function's second parameter is an optional object with any of the following options.
+
+| Option | Default value |
+|---|---|
+|`skipKeyValidation: <boolean>` | `false`
 
 ## Author
 [Sean McPherson](https://github.com/seanmcp)

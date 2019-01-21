@@ -17,7 +17,7 @@
   },
   "scripts": {
     "build": "rm -rf ./lib && mkdir ./lib && babel src -d lib --ignore '**/*.test.js'",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "files": [
     "lib"
