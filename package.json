@@ -12,12 +12,24 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "jest": "^23.6.0"
+    "eslint": "^5.12.1",
+    "husky": "^1.3.1",
+    "jest": "^23.6.0",
+    "prettier": "^1.16.0"
   },
   "scripts": {
     "build": "rm -rf ./lib/* && babel src -d lib --ignore '**/*.test.js'",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "precommit": "npm run format && npm run lint",
+    "format": "prettier --write 'src/**/*.js'",
+    "lint": "eslint --fix 'src/**/*.js'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
   },
   "files": [
     "lib"

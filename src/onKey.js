@@ -1,12 +1,12 @@
-import validate from './validate';
+import validate from './validate'
 
 function onKey(keyActionMap, options) {
-    validate(keyActionMap, options);
-    return ({ key }) => {
-        if (keyActionMap[key]) {
-            keyActionMap[key]();
-        }
-    };
+  validate(keyActionMap, options)
+  return ({ key }) => {
+    if (keyActionMap[key]) {
+      keyActionMap[key]()
+    }
+  }
 }
 
-export default onKey;
+export default onKey
