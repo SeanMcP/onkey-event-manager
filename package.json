@@ -1,6 +1,6 @@
 {
   "name": "onkey-event-manager",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Easily map onKey functions to keyboard events",
   "main": "lib/index.js",
   "repository": "https://github.com/seanmcp/onkey-event-manager",
@@ -43,6 +43,6 @@
     "keypress"
   ],
   "dependencies": {
-    "all-keyboardevent-keys": "0.0.1"
+    "all-keyboardevent-keys": "latest"
   }
 }
