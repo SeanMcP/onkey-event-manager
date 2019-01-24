@@ -12,7 +12,7 @@
 ```jsx
 import { KEY, onKey } from 'onkey-event-manager'
 
-<button onKeyDown={onKey({ [KEY.ArrowDown]: open }}>▾</button>
+<button onKeyDown={onKey({ [KEY.ArrowDown]: open })}>▾</button>
 ```
 
 ## Why?
