@@ -1,5 +1,5 @@
 # onkey-event-manager
-[![npm](https://img.shields.io/npm/v/onkey-event-manager.svg)](https://npmjs.com/package/onkey-event-manager) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/onkey-event-manager.svg)](https://npmjs.com/package/onkey-event-manager) [![npm](https://img.shields.io/npm/dt/onkey-event-manager.svg)](https://npmjs.com/package/onkey-event-manager)
+[![npm](https://img.shields.io/npm/v/onkey-event-manager.svg)](https://npmjs.com/package/onkey-event-manager) [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/onkey-event-manager.svg)](https://npmjs.com/package/onkey-event-manager) [![npm](https://img.shields.io/npm/dt/onkey-event-manager.svg)](https://npmjs.com/package/onkey-event-manager) [![A project badge feature text "PRs Welcome"](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
 
 🗝 Easily map onKey functions to keyboard events
 
@@ -49,7 +49,7 @@ function Accordion(props) {
     )
 }
 ```
-This is fine but becomes cumbersome when trying to make complex user interfaces accessible.
+This is fine but becomes cumbersome when trying to make complex user interfaces accessible with multiple keyboard interactions.
 
 `onkey-event-manager` abstracts the event key filtering logic, simplifying the process of listening for keys.
 
@@ -63,6 +63,7 @@ yarn add onkey-event-manager
 ```
 
 ## Use
+
 Import `KEY` and `onKey` from `onkey-event-manager` and add it to your code:
 
 ```jsx
@@ -107,26 +108,26 @@ KEY['\\'] // '\'
 
 ### `onKey`
 
-`onKey` is a simple function that listens for an event, compares it to a set of selected keys, then calls the action if there is a match. It takes two objects as parameters: the first maps a key to a function, and the second is for options:
+`onKey` is a simple function that listens for an event, compares it to a set of selected keys, then calls the action and passes the `event` object if there is a match. It takes two objects as parameters: the first maps a key to a function, and the second is for options:
 
 ```js
 onKey(Object<String, Function>, Object<String, Boolean>)
 ```
-If there is a single key you want to listen for, pass an object with [computed property names](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names):
+If there is a single key you want to listen for, pass an object inline with [computed property names](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names):
 
 ```jsx
 <button onKeyDown={onKey({ [KEY.ArrowDown]: openMenu })} >
 ```
 
-For more complex listening, consider creating a separate object to keep your JSX clean:
+For more complex listening, consider generating the function outside of the return to keep your JSX clean:
 
 ```jsx
 function SelectOption(props) {
-    const keyActionMap = {
+    const handleKeyDown = onKey({
         [KEY.ArrowUp]: props.decrementIndex,
         [KEY.ArrowDown]: props.incrementIndex,
-    }
-    return <li onKeyDown={onKey(keyActionMap)}>{props.children}</li>
+    })
+    return <li onKeyDown={handleKeyDown}>{props.children}</li>
 }
 ```
 
@@ -141,6 +142,7 @@ The `onKey` function's second parameter is an optional object with any of the fo
 | Option | Default value |
 |---|---|
 |`skipKeyValidation: <boolean>` | `false`
+
 
 ## Author
 [Sean McPherson](https://github.com/seanmcp)

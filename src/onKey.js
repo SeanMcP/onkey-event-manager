@@ -2,9 +2,10 @@ import validate from './validate'
 
 function onKey(keyActionMap, options) {
   validate(keyActionMap, options)
-  return ({ key }) => {
+  return event => {
+    const { key } = event
     if (keyActionMap[key]) {
-      keyActionMap[key]()
+      keyActionMap[key](event)
     }
   }
 }

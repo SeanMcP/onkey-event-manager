@@ -3,7 +3,7 @@ import KEY from 'all-keyboardevent-keys'
 export function isValid(keyActionMap) {
   if (!Object.keys(keyActionMap).length)
     throw Error(
-      `'onKey' requires two parameters: a valid KeyboardEvent key and a callback function`
+      `'onKey' requires a map of valid KeyboardEvent keys and callback functions`
     )
 }
 
