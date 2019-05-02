@@ -1,10 +1,7 @@
 import KEY from 'all-keyboardevent-keys'
 
-export function isValid(keyActionMap) {
-  if (!Object.keys(keyActionMap).length)
-    throw Error(
-      `'onKey' requires a map of valid KeyboardEvent keys and callback functions`
-    )
+export function isObject(input) {
+  return typeof input === 'object' && input !== null
 }
 
 export function areValidKeys(keyActionMap, options) {
@@ -12,8 +9,10 @@ export function areValidKeys(keyActionMap, options) {
     return
   }
   for (const key in keyActionMap) {
-    if (!KEY[key]) {
-      throw Error(`'${key}' is not a valid KeyboardEvent key`)
+    if (!KEY.hasOwnProperty(key)) {
+      throw Error(
+        `'${key}' is not a valid KeyboardEvent key (To override this check, pass the 'skipKeyValidation' option: https://www.npmjs.com/package/onkey-event-manager#options)`
+      )
     }
   }
 }
@@ -26,8 +25,21 @@ export function areValidFunctions(keyActionMap) {
   }
 }
 
-export default function(keyActionMap, options) {
-  isValid(keyActionMap)
-  areValidFunctions(keyActionMap, options)
-  areValidKeys(keyActionMap)
+export function areValidParams(keyActionMap, options) {
+  if (!isObject(keyActionMap)) {
+    throw Error(
+      `The first argument passed to 'onKey' must be an object of valid KeyboardEvent keys and callback functions`
+    )
+  }
+  if (typeof options !== 'undefined' && !isObject(options)) {
+    throw Error(
+      `The second argument passed to 'onKey' must be an object of valid options`
+    )
+  }
+}
+
+export default function() {
+  areValidParams(...arguments)
+  areValidKeys(...arguments)
+  areValidFunctions(...arguments)
 }
