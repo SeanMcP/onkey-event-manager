@@ -1,9 +1,10 @@
-import { isValid, areValidFunctions, areValidKeys } from './validate'
+import validate from './validate'
 
 const params = {
   valid: {
     key: 'ArrowDown',
-    function: () => null
+    function: () => null,
+    options: { skipKeyValidation: true }
   },
   invalid: {
     key: 'Bananas',
@@ -11,47 +12,47 @@ const params = {
   }
 }
 
-// 0.0.0--prerelease.0
-
-test('It errors with empty object', () => {
-  function emptyObject() {
-    isValid({})
+test('validate succeeds with valid key map', () => {
+  function wrapper() {
+    validate({ [params.valid.key]: params.valid.function })
   }
-  expect(emptyObject).toThrowError()
+  expect(wrapper).not.toThrowError()
 })
 
-test('It errors with invalid key', () => {
-  function invalidKey() {
-    areValidKeys({
-      [params.valid.key]: params.valid.function,
-      [params.invalid.key]: params.valid.function
-    })
-  }
-  expect(invalidKey).toThrow(Error)
-})
-
-test('It errors with invalid function', () => {
-  function invalidFunction() {
-    areValidFunctions({
-      [params.valid.key]: params.valid.function,
-      [params.valid.key]: params.invalid.function
-    })
-  }
-  expect(invalidFunction).toThrow(Error)
-})
-
-// 0.0.0--prerelease.1
-
-test('It returns with invalid key and skipKeyValidation option', () => {
-  function invalidKey() {
-    areValidKeys(
-      {
-        [params.invalid.key]: params.valid.function
-      },
-      {
-        skipKeyValidation: true
-      }
+test('validate succeeds with invalid key AND skipKeyValidation', () => {
+  function wrapper() {
+    validate(
+      { [params.invalid.key]: params.valid.function },
+      params.valid.options
     )
   }
-  expect(invalidKey).not.toThrow(Error)
+  expect(wrapper).not.toThrowError()
+})
+
+test('validate errors with invalid key map', () => {
+  function wrapper() {
+    validate(null)
+  }
+  expect(wrapper).toThrowError()
+})
+
+test('validate errors with invalid options', () => {
+  function wrapper() {
+    validate({}, null)
+  }
+  expect(wrapper).toThrowError()
+})
+
+test('validate errors with invalid key', () => {
+  function wrapper() {
+    validate({ [params.invalid.key]: params.valid.function })
+  }
+  expect(wrapper).toThrowError()
+})
+
+test('validate errors with invalid function', () => {
+  function wrapper() {
+    validate({ [params.valid.key]: params.invalid.function })
+  }
+  expect(wrapper).toThrowError()
 })
