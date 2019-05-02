@@ -12,7 +12,7 @@
 ```jsx
 import { KEY, onKey } from 'onkey-event-manager'
 
-<button onKeyDown={onKey({ [KEY.ArrowDown]: open })}>▾</button>
+<button onKeyDown={onKey({ [KEY.ArrowDown]: open })}>Open</button>
 ```
 
 ## Why?
@@ -143,6 +143,32 @@ The `onKey` function's second parameter is an optional object with any of the fo
 |---|---|
 |`skipKeyValidation: <boolean>` | `false`
 
+##### Skip key validation
+
+If you want to skip key validation by default, create a separate utility for `onKey` that automatically passes the option:
+
+```js
+// onKey.js
+import { KEY, onKey as _onKey } from 'onkey-event-manager'
+
+function onKey(keyMap, options={}) {
+    options.skipKeyValidation = true
+    _onKey(keyMap, options)
+}
+
+export {
+    KEY, // Importing/exporting KEY for ease of use
+    onKey
+}
+```
+
+Then import your utility and use it instead:
+
+```jsx
+import { KEY, onKey } from '../utils/onKey'
+
+<button onKeyDown={onKey({ [KEY.ArrowDown]: open })}>Open</button>
+```
 
 ## Author
 [Sean McPherson](https://github.com/seanmcp)
