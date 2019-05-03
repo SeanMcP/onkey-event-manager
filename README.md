@@ -145,27 +145,14 @@ The `onKey` function's second parameter is an optional object with any of the fo
 
 ##### Skip key validation
 
-If you want to skip key validation by default, create a separate utility for `onKey` that automatically passes the option:
+If you want to skip key validation by default, there is an exposed function that  bypasses the validation step. However, using it is not officially recommended.
 
-```js
-// onKey.js
-import { KEY, onKey as _onKey } from 'onkey-event-manager'
+The function will only exist while the dependency [`all-keyboardevent-keys`](https://npmjs.org/package/all-keyboardevent-keys) is under development. Once that project is bumped to version 1+, **this function will be removed**.
 
-function onKey(keyMap, options={}) {
-    options.skipKeyValidation = true
-    _onKey(keyMap, options)
-}
-
-export {
-    KEY, // Importing/exporting KEY for ease of use
-    onKey
-}
-```
-
-Then import your utility and use it instead:
+If you want to live life on the edge, import and use `onKeyUnsafe` as follows:
 
 ```jsx
-import { KEY, onKey } from '../utils/onKey'
+import { KEY, onKeyUnsafe as onKey } from 'onkey-event-manager'
 
 <button onKeyDown={onKey({ [KEY.ArrowDown]: open })}>Open</button>
 ```
