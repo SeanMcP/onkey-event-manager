@@ -1,6 +1,6 @@
 {
   "name": "onkey-event-manager",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Easily map onKey functions to keyboard events",
   "main": "lib/index.js",
   "repository": "https://github.com/seanmcp/onkey-event-manager",
@@ -13,10 +13,10 @@
     "@babel/preset-env": "^7.2.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
-    "babel-jest": "^23.6.0",
+    "babel-jest": "^24.7.1",
     "eslint": "^5.12.1",
     "husky": "^1.3.1",
-    "jest": "^23.6.0",
+    "jest": "^24.7.1",
     "prettier": "^1.16.0"
   },
   "scripts": {
