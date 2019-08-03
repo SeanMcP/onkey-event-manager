@@ -4,15 +4,47 @@
 
 🗝 Easily map onKey functions to keyboard events
 
-## Simple
+## Basics
 
 `onkey-event-manager` simplifies the process of listening for and acting on key changes.
 
 ```jsx
 import onKey from 'onkey-event-manager'
 
-// ...
-return <button onKeyDown={onKey({ ArrowDown: open })}>Open</button>
+const OpenButton = ({ open }) => (
+  <button onKeyDown={onKey({ ArrowDown: open })}>Open</button>
+)
+```
+
+## Install
+
+Add `onkey-event-manager` to your project:
+
+```sh
+npm install --save onkey-event-manager
+# or
+yarn add onkey-event-manager
+```
+
+## Use
+
+Import the default `onKey` function from `onkey-event-manager` and add it to your code:
+
+```jsx
+...
+import onKey from 'onkey-event-manager'
+
+function Button({ onClick }) {
+    return (
+        <button
+            onClick={onClick}
+            onKeyDown={onKey({ ArrowDown: onClick })}
+        >
+            <code>onClick</code> will fire when I am clicked
+            or when I'm focused and you press the down arrow.
+        </button>
+    )
+}
 ```
 
 ## Why?
@@ -55,44 +87,13 @@ This is fine but becomes cumbersome when trying to make complex user interfaces 
 
 `onkey-event-manager` abstracts the event key filtering logic, simplifying the process of listening for keys.
 
-## Install
-
-Add `onkey-event-manager` to your project:
-
-```sh
-npm install --save onkey-event-manager
-# or
-yarn add onkey-event-manager
-```
-
-## Use
-
-Import the default `onKey` function from `onkey-event-manager` and add it to your code:
-
-```jsx
-...
-import onKey from 'onkey-event-manager'
-
-function Button({ onClick }) {
-    return (
-        <button
-            onClick={onClick}
-            onKeyDown={onKey({ ArrowDown: onClick })}
-        >
-            <code>onClick</code> will fire when I am clicked
-            or when I'm focused and you press the down arrow.
-        </button>
-    )
-}
-```
-
 ## API
 
-Version 1.x of `onkey-event-manager` comprises a single default export: `onKey`.
+Version 1+ of `onkey-event-manager` comprises a single default export: `onKey`.
 
 ### `onKey()`
 
-`onKey` is a simple function that listens for an event, compares it to a set of selected keys, then calls the action and passes the `event` object if there is a match. It takes two objects as parameters: the first maps a key to a function, and the second is for options:
+`onKey` is a simple function that listens for an event, compares it to a set of selected keys, then calls the action and passes the `event` object if there is a match.
 
 ```js
 onKey(Object<String, Function>)
@@ -104,7 +105,7 @@ If there is a single key you want to listen for, pass an object inline with [com
 <button onKeyDown={onKey({ ArrowDown: openMenu })} >
 ```
 
-For more complex listening, consider generating the function outside of the return to keep your JSX clean:
+For more complex listening, consider calling the function outside of the return to keep your JSX clean:
 
 ```jsx
 function SelectOption(props) {
