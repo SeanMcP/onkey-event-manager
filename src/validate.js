@@ -8,15 +8,10 @@ export function areValidFunctions(keyActionMap) {
   }
 }
 
-export function areValidParams(keyActionMap, options) {
+export function areValidParams(keyActionMap) {
   if (!isObject(keyActionMap)) {
     throw TypeError(
       `The first argument passed to 'onKey' must be an object of valid KeyboardEvent keys and callback functions`
-    )
-  }
-  if (typeof options !== 'undefined' && !isObject(options)) {
-    throw TypeError(
-      `The second argument passed to 'onKey' must be an object of valid options`
     )
   }
 }

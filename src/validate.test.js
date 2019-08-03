@@ -18,13 +18,6 @@ test('validate errors with invalid key map', () => {
   expect(wrapper).toThrowError()
 })
 
-test('validate errors with invalid options', () => {
-  function wrapper() {
-    validate({}, null)
-  }
-  expect(wrapper).toThrowError()
-})
-
 test('validate errors with invalid function', () => {
   function wrapper() {
     validate({ [KEY]: INVALID_FUNCTION })
