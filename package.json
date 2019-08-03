@@ -44,6 +44,7 @@
     "keypress"
   ],
   "dependencies": {
-    "all-keyboardevent-keys": "^0.0.4"
+    "all-keyboardevent-keys": "^0.0.4",
+    "isobject": "^4.0.0"
   }
 }
