@@ -1,7 +1,7 @@
 import validate from './validate'
 
-function onKey(keyActionMap, options) {
-  validate(keyActionMap, options)
+function onKey(keyActionMap) {
+  validate(keyActionMap)
   return event => {
     const { key } = event
     if (keyActionMap.hasOwnProperty(key)) {
