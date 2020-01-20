@@ -21,7 +21,7 @@ const OpenButton = ({ open }) => (
 Add `onkey-event-manager` to your project:
 
 ```sh
-npm install --save onkey-event-manager
+npm i onkey-event-manager
 # or
 yarn add onkey-event-manager
 ```
@@ -99,7 +99,7 @@ Version 1+ of `onkey-event-manager` comprises a single default export: `onKey`.
 onKey(Object<String, Function>)
 ```
 
-If there is a single key you want to listen for, pass an object inline with [computed property names](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Computed_property_names):
+If there is a single key you want to listen for, pass an object inline:
 
 ```jsx
 <button onKeyDown={onKey({ ArrowDown: openMenu })} >
@@ -119,7 +119,7 @@ function SelectOption(props) {
 
 ## Author
 
-[Sean McPherson](https://github.com/seanmcp)
+[Sean McPherson](https://seanmcp.com)
 
 ## License
 
